@@ -62,3 +62,20 @@ main,.opening,.work,footer{max-width:100%;overflow-x:clip}
   .folder-preview{max-width:calc(100vw - 24px)}
   .folder-preview__videos{min-width:0}
 }
+html body main section#work {
+  min-height: max(120vh, 900px) !important;
+  padding-bottom: clamp(180px, 24vh, 320px) !important;
+  overflow: visible !important;
+  clip-path: none !important;
+}
+
+html body main section#work .folder-grid {
+  min-height: 100vh !important;
+  overflow: visible !important;
+  clip-path: none !important;
+}
+
+html body main section#work .folder-float {
+  overflow: visible !important;
+  clip-path: none !important;
+}

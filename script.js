@@ -62,3 +62,19 @@ if(heroCopy){
   });
   heroCopy.addEventListener('pointerleave',()=>{heroCopy.style.setProperty('--hero-rx','0deg');heroCopy.style.setProperty('--hero-ry','0deg');});
 }
+document.addEventListener('click', (event) => {
+  if (!event.target.closest?.('.folder-float__item')) return;
+  const folder = event.target.closest('.folder-float');
+  window.setTimeout(() => {
+    folder?.querySelectorAll('.folder-preview video').forEach((video) => {
+      const source = video.querySelector('source');
+      const mediaUrl = video.dataset.src || source?.dataset.src || video.getAttribute('src') || source?.getAttribute('src');
+      if (mediaUrl && !video.currentSrc) video.src = mediaUrl;
+      video.preload = 'metadata';
+      video.load();
+      video.addEventListener('loadedmetadata', () => {
+        if (video.readyState >= 2) video.pause();
+      }, { once: true });
+    });
+  }, 120);
+});
