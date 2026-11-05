@@ -4,6 +4,12 @@ const mediaBase=(window.MEDIA_BASE_URL||'').replace(/\/$/,'');
 if(mediaBase){document.querySelectorAll('video[src^="media/"]').forEach(video=>{video.dataset.localSrc=video.getAttribute('src');video.src=`${mediaBase}/${encodeURI(video.dataset.localSrc.slice(6))}`;});}
 const folderItems={all:['宣传片','影视混剪','讲解视频','AI视频']};
 const categoryMap={'宣传片':'film','影视混剪':'edit','讲解视频':'drone','AI视频':'ai'};
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches&&'IntersectionObserver'in window){
+  const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}
+  }),{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.work-head,.folder-float').forEach(element=>revealObserver.observe(element));
+}else document.querySelectorAll('.work-head,.folder-float').forEach(element=>element.classList.add('is-visible'));
 projects.forEach(project=>project.hidden=true);
 const folder=document.querySelector('.folder-float');
 const preview=document.createElement('div');
